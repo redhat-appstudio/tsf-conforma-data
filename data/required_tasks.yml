@@ -1,0 +1,15 @@
+---
+pipeline-required-tasks:
+  docker:
+    - effective_on: "2025-04-01T00:00:00Z"
+      tasks:
+        - [buildah, buildah-remote, buildah-oci-ta, buildah-remote-oci-ta]
+        - [clair-scan, roxctl-scan]
+        - deprecated-image-check
+        - [git-clone, git-clone-oci-ta]
+        - init
+        - [prefetch-dependencies, prefetch-dependencies-oci-ta]
+        - rpms-signature-scan
+        - [sast-shell-check, sast-shell-check-oci-ta]
+        - [sast-unicode-check, sast-unicode-check-oci-ta]
+

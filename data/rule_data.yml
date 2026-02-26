@@ -1,0 +1,40 @@
+---
+rule_data:
+  # TODO: This can't be empty. Is this a reasonable list to start with?
+  allowed_registry_prefixes:
+  - registry.access.redhat.com/
+  - registry.redhat.io/
+
+  # Number of days before a version of the Task expires that warnings are reported
+  # See https://conforma.dev/docs/policy/packages/release_trusted_task.html#trusted_task__current
+  task_expiry_warning_days: 14
+
+  # https://conforma.dev/docs/policy/packages/release_labels.html#labels__required_labels
+  required_labels:
+    - name: org.opencontainers.image.revision
+      description: Source control revision identifier for the packaged software.
+    - name: org.opencontainers.image.source
+      description: URL to get source code for building the image
+
+  # TODO: Continue here!
+  # https://conforma.dev/docs/policy/packages/release_test.html
+  informative_tests:
+  - sast-shell-check
+  - sast-shell-check-oci-ta
+  - sast-unicode-check
+  - sast-unicode-check-oci-ta
+
+  disallowed_platform_patterns:
+  - .*root.*
+
+  # List of keys: https://access.redhat.com/security/team/key
+  allowed_rpm_signature_keys:
+  # release key 2
+  - 199e2f91fd431d51
+
+  # Thresholds are one day shorter than the time periods for grade C in:
+  # https://access.redhat.com/articles/2803031
+  cve_leeway:
+    critical: 6
+    high: 29
+

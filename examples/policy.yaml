@@ -1,0 +1,34 @@
+name: Red Hat - Trusted Software Factory
+
+sources:
+  - name: Default
+    policy:
+      - github.com/conforma/policy//policy/lib
+      - github.com/conforma/policy//policy/release
+    data:
+      - github.com/redhat-appstudio/tsf-conforma-data//data
+    config:
+      include:
+        - '@redhat'
+      exclude:
+        # Hermetic builds are great, but there is usually a significant amount of work to make
+        # them work which can be intimidating during the onboarding process.
+        - hermetic_task
+        # Konflux supports packaging the source code used for building an image to be packaged
+        # as an OCI artifact attached to the image. Although this is great for open source, it
+        # can catch users by surprise and potentially leak code that is not meant to be open.
+        - source_image
+        # Konflux, via Hermeto, has support for the experimental RPM lockfiles. When that is used
+        # this policy package ensures that the RPMs listed in the SBOM declare which YUM/DNF repo
+        # they came from. This is important for mapping CVEs to RPMs during content analysis
+        # performed by clair.
+        # NOTE: To enable this policy package, the full list of RPM repositories has to be provided
+        # as rule data. Red Hat provides this list here:
+        # https://github.com/release-engineering/rhtap-ec-policy/blob/main/data/known_rpm_repositories.yml
+        # However, it is not possible to include just that file in the rule data.
+        - rpm_repos
+        # These Tasks should eventually be removed from the Pipeline. Once that's done, these "test"
+        # exclusions can be removed.
+        - test:ecosystem-cert-preflight-checks
+        - test:coverity-availability-check
+        - test:sast-snyk-check-oci-ta
