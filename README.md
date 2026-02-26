@@ -17,7 +17,7 @@ yq '.spec.pipelineSpec.tasks[].taskRef.params[] | select(.name == "bundle") | .v
 Track a Task bundle in the list of trusted Tasks:
 
 ```bash
-ec track tekton-task --output data/trusted-tasks.yaml
+ec track tekton-task --output data/trusted-tasks.yaml --bundle <my-task-ref>
 ```
 
 Combining the two commands to track multiple Task bundles:
