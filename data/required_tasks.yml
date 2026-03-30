@@ -5,6 +5,7 @@ pipeline-required-tasks:
       tasks:
         - [buildah, buildah-remote, buildah-oci-ta, buildah-remote-oci-ta, buildah-oci-ta-min]
         - [clair-scan, roxctl-scan]
+        - tpa-scan
         - clamav-scan
         - deprecated-image-check
         - [git-clone, git-clone-oci-ta, git-clone-oci-ta-min]
