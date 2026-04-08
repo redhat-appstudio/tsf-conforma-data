@@ -4,7 +4,6 @@ pipeline-required-tasks:
     - effective_on: "2025-04-01T00:00:00Z"
       tasks:
         - [buildah, buildah-remote, buildah-oci-ta, buildah-remote-oci-ta, buildah-oci-ta-min]
-        - [clair-scan, clair-scan-min,roxctl-scan]
         - tpa-scan
         - [clamav-scan, clamav-scan-min]
         - deprecated-image-check
